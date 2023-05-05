@@ -1,0 +1,23 @@
+schema-version: v1
+kind: plugin
+metadata:
+  name: plugin-input-pattern-tests
+  display-name: plugin-input-pattern-tests
+  description: Template used to test the pattern field of the inputs
+  version: 0.0.3
+  picture: plugin.png
+spec:
+  type: app
+  compatibility:
+    - python
+  about: docs/about.md
+  implementation: docs/implementation.md
+  release-notes: docs/release-notes-0.0.3.md
+  requirements: docs/requirements.md
+  technologies: # Ref: https://docs.stackspot.com/docs/create-stacks/yaml-files/yaml/#technologies
+    - Api
+  inputs:
+    - label: Text field
+      type: text
+      name: text_field
+      pattern: "^[A-Za-z\\s]+$"

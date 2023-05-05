@@ -1,0 +1,36 @@
+schema-version: v1
+kind: plugin
+metadata:
+  name: plugin-input-global-tests
+  display-name: plugin-input-global-tests
+  description: Template used to test global inputs
+  version: 0.0.2
+  picture: plugin.png
+spec:
+  type: app
+  compatibility:
+    - python
+  about: docs/about.md
+  implementation: docs/implementation.md
+  release-notes: docs/release-notes-0.0.2.md
+  requirements: docs/requirements.md
+  technologies: # Ref: https://docs.stackspot.com/docs/create-stacks/yaml-files/yaml/#technologies
+    - Api
+  inputs:
+    - label: Project name
+      type: text
+      name: project_name
+      default: Project Name
+    - label: Local input
+      type: text
+      name: local_input
+      default: Local-Input-Definied-By-Template
+    - label: Global input
+      type: text
+      name: global_input
+      global: true
+      default: Global-Input-Definied-By-Template
+  computed-inputs:
+    local_computed_input: "{{ local_input | upper }}"
+  global-computed-inputs:
+    global_computed_input: "{{ global_input | replace('-', '_') | lower}}"

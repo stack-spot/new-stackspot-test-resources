@@ -1,0 +1,38 @@
+{
+    "menu": {
+        "node-test1": {
+            "a1": "value1",
+            "a2": "value2"
+        },
+        "node-test2-to-be-removed": {
+            "b1": "valueb1",
+            "b2": "valueb2"
+        },
+        "node-test3-to-be-cleared": {
+            "c1": "valuec1",
+            "c2": "valuec2"
+        },
+        "attr-test-1": "attr-test-1-value",
+        "attr-test-2-to-be-removed": "attr-test-2-value",
+        "attr-test-3": "attr-test-3-value",
+        "attr-test-4": "attr-test-4-value",
+        "id": "file",
+        "value": "File",
+        "popup": {
+            "menuitem": [
+                {
+                    "value": "New",
+                    "onclick": "CreateDoc()"
+                },
+                {
+                    "value": "Open",
+                    "onclick": "OpenDoc()"
+                },
+                {
+                    "value": "Save",
+                    "onclick": "SaveDoc()"
+                }
+            ]
+        }
+    }
+}

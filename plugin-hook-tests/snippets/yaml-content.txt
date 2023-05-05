@@ -1,0 +1,2 @@
+            input1-from-snippet: {{input1}}
+            input2-from-snippet: {{input2}}
