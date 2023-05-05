@@ -1,0 +1,4 @@
+            <dependency>
+              <input1-from-snippet>{{input1}}</input1-from-snippet>
+              <input2-from-snippet>{{input2}}</input2-from-snippet>
+            </dependency>

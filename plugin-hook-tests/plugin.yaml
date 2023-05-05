@@ -1,0 +1,179 @@
+schema-version: v1
+kind: plugin
+metadata:
+  name: plugin-hook-tests
+  display-name: plugin-hook-tests
+  description: Plugin used to test hooks and triggers
+  version: 0.0.5
+  picture: plugin.png
+spec:
+  type: app
+  compatibility:
+    - python
+  about: docs/about.md
+  implementation: docs/implementation.md
+  release-notes: docs/release-notes.md
+  requirements: docs/requirements.md
+  technologies: # Ref: https://docs.stackspot.com/docs/create-stacks/yaml-files/yaml/#technologies
+    - Api
+  inputs:
+    - label: Input1
+      type: text
+      name: input1
+    - label: Input2
+      type: text
+      name: input2
+  hooks:
+    ## ---------------------------------------
+    ## ---------- HOOK TYPE: RUN
+    ## ---------------------------------------
+    - type: run
+      trigger: before-input
+      linux:
+        - echo "hello from run-hook-before-input on Linux"
+      mac:
+        - echo "hello from run-hook-before-input on Mac"
+      windows:
+        - cmd /C echo "hello from run-hook-before-input on Windows"
+    - type: run
+      trigger: before-render
+      linux:
+        - echo "hello from run-hook-before-render on Linux"
+        - sh {{component_path}}/scripts/unix/assert_file_not_found.sh sample-md.md
+      mac:
+        - echo "hello from run-hook-before-render on Mac"
+        - sh {{component_path}}/scripts/unix/assert_file_not_found.sh sample-md.md
+      windows:
+        - cmd /C echo "hello from run-hook-before-render on Windows"
+        - cmd /C "{{component_path}}\scripts\windows\assert_file_not_found.bat" sample-md.md
+    - type: run
+      trigger: after-render
+      linux:
+        - echo "hello from run-hook-after-render on Linux"
+        - sh {{component_path}}/scripts/unix/assert_file_found.sh sample-md.md
+      mac:
+        - echo "hello from run-hook-after-render on Mac"
+        - sh {{component_path}}/scripts/unix/assert_file_found.sh sample-md.md
+      windows:
+        - cmd /C echo "hello from run-hook-after-render on Windows"
+        - cmd /C "{{component_path}}\scripts\windows\assert_file_found.bat" sample-md.md
+    ## ---------------------------------------
+    ## ---------- HOOK TYPE: RUN-SCRIPT
+    ## ---------------------------------------
+    - type: run-script
+      trigger: before-input
+      script: scripts/assert_inputs_empty.py
+    - type: run-script
+      trigger: before-render
+      script: scripts/assert_readme_not_found.py
+    - type: run-script
+      trigger: after-render
+      script: scripts/assert_readme_found.py
+    ## ---------------------------------------
+    ## ---------- HOOK TYPE: EDIT
+    ## ---------------------------------------
+    - type: edit
+      trigger: after-render
+      path: src/some-file.txt
+      changes:
+        - insert:
+            line: 0
+            value: " # This is the base text "
+            when:
+              not-exists: "StringABCD"
+        - search:
+            string: "# This is the base text "
+            insert-before:
+              snippet: snippets/before-base-text.txt
+            when:
+              not-exists: "StringABCD"
+              not-exists-snippet: snippets/before-base-text.txt
+        - search:
+            string: "# This is the base text "
+            insert-after:
+              value: "# After base text"
+        - search:
+            pattern: (A )sample( text)
+            replace-by:
+              value: \1sample edited\2
+            when:
+              not-exists: "StringABCD"
+    # ---------------------------------------
+    # ---------- HOOK TYPE: EDIT-XML
+    # ---------------------------------------
+    - type: edit-xml
+      trigger: after-render
+      path: xml-sample.xml
+      encoding: UTF-8
+      indent: "\t"
+      changes:
+        - xpath: .//dependencies
+          append:
+            value: |
+              <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.8.2</version>
+                <scope>test</scope>
+                <{{input1}}>{{input2}}</{{input1}}>
+              </dependency>
+          prepend:
+            value: <{{input1}}>{{input2}}</{{input1}}>
+        - xpath: .//dependencies
+          append:
+            snippet: snippets/xml-content.txt
+        - xpath: .//random-node
+          attributes:
+            - name: att-name
+              value: att-value
+    # ---------------------------------------
+    # ---------- HOOK TYPE: EDIT-JSON
+    # ---------------------------------------
+    - type: edit-json
+      trigger: after-render
+      path: json-sample.json
+      indent: "\t"
+      encoding: utf-8
+      changes:
+        - jsonpath: "$.menu.node-test1"
+          update:
+            value: |
+              {
+              "input1": "{{input1}}",
+              "input2": "{{input2}}"
+              }
+        - jsonpath: "$.menu.node-test1"
+          update:
+            snippet: snippets/json-content.txt
+        - jsonpath: "$.menu"
+          remove:
+            - name: node-test2-to-be-removed
+            - name: attr-test-2-to-be-removed
+        - jsonpath: "$.menu.node-test3-to-be-cleared"
+          clear: true
+    # ---------------------------------------
+    # ---------- HOOK TYPE: EDIT-YAML
+    # ---------------------------------------
+    - type: edit-yaml
+      trigger: after-render
+      path: yaml-sample.yaml
+      indent: 2
+      encoding: utf-8
+      changes:
+        - yamlpath: "$.menu.node-test1"
+          update:
+            value: |
+              input1: {{input1}}
+              input2: {{input2}}
+        - yamlpath: "$.menu.node-test1"
+          update:
+            snippet: snippets/yaml-content.txt
+        - yamlpath: "$.menu"
+          remove:
+            - name: node-test2-to-be-removed
+            - name: attr-test-2-to-be-removed
+        - yamlpath: "$.menu.node-test3-to-be-cleared"
+          clear: true
+        - yamlpath: "$.menu.node-test4[?(@.type=~'my-package.*')]"
+          update:
+            value: "type: my-package.2.0.0"

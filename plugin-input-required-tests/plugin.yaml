@@ -1,0 +1,53 @@
+schema-version: v1
+kind: plugin
+metadata:
+  name: plugin-input-required-tests
+  display-name: plugin-input-required-tests
+  description: Template used to test the required field of the inputs
+  version: 0.0.3
+  picture: plugin.png
+spec:
+  type: app
+  compatibility:
+    - python
+  about: docs/about.md
+  implementation: docs/implementation.md
+  release-notes: docs/release-notes-0.0.3.md
+  requirements: docs/requirements.md
+  technologies: # Ref: https://docs.stackspot.com/docs/create-stacks/yaml-files/yaml/#technologies
+    - Api
+  inputs:
+    - label: Text field
+      type: text
+      name: text_field
+      required: true
+    - label: Boolean field
+      type: bool
+      name: boolean_field
+      required: true
+    - label: Integer field
+      type: int
+      name: integer_field
+      required: true
+    - label: Password field
+      type: password
+      name: password_field
+      required: true
+    - label: Select field
+      type: text
+      name: select_field
+      items:
+        - "python"
+        - "java"
+        - "golang"
+        - "javascript"
+      required: true
+    - label: Multiselect field
+      type: multiselect
+      name: multiselect_field
+      items:
+        - item1
+        - item2
+        - item3
+        - item4
+      required: true

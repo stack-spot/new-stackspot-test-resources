@@ -1,0 +1,13 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>  
+  <groupId>com.java.application1</groupId>  
+  <artifactId>my-application1</artifactId>  
+  <version>1.0</version>  
+  <packaging>jar</packaging>  
+  <name>Maven Quick Start Archetype</name>  
+  <url>http://maven.apache.org</url>
+  <random-node></random-node>  
+  <dependencies>  
+  </dependencies>
+  <random-node></random-node>
+</project>  

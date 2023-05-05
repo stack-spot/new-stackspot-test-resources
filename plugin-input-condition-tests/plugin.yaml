@@ -1,0 +1,182 @@
+schema-version: v1
+kind: plugin
+metadata:
+  name: plugin-input-condition-tests
+  display-name: plugin-input-condition-tests
+  description: Template used to test the condition applied for the inputs
+  version: 0.0.3
+  picture: plugin.png
+spec:
+  type: app
+  compatibility:
+    - python
+  about: docs/about.md
+  implementation: docs/implementation.md
+  release-notes: docs/release-notes-0.0.3.md
+  requirements: docs/requirements.md
+  technologies: # Ref: https://docs.stackspot.com/docs/create-stacks/yaml-files/yaml/#technologies
+    - Api
+  inputs:
+    # Fields used in conditions
+    - label: Field 1
+      type: bool
+      name: field_1
+      required: true
+    - label: Field 2
+      type: text
+      name: field_2
+      required: true
+      default: "test"
+    - label: Field 3
+      type: int
+      name: field_3
+      required: true
+      default: 1
+    - label: Field 4
+      type: multiselect
+      name: field_4
+      required: true
+      items:
+        - item1
+        - item2
+        - item3
+        - item4
+      default: [item1, item2]
+    # Operator ==
+    - label: Should appear if field 1 is true
+      type: text
+      name: equals_operator_test_1
+      default: ok
+      condition:
+        variable: field_1
+        operator: "=="
+        value: true
+    - label: Should appear if field 2 value is String2
+      type: text
+      name: equals_operator_test_2
+      default: ok
+      condition:
+        variable: field_2
+        operator: "=="
+        value: "String2"
+    - label: Should appear if field 3 value is 1
+      type: text
+      name: equals_operator_test_3
+      default: ok
+      condition:
+        variable: field_3
+        operator: "=="
+        value: 1
+    # Operator !=
+    - label: Should appear if field 1 is not true
+      type: text
+      name: not_equals_operator_test_1
+      default: ok
+      condition:
+        variable: field_1
+        operator: "!="
+        value: true
+    - label: Should appear if field 2 value is not String2
+      type: text
+      name: not_equals_operator_test_2
+      default: ok
+      condition:
+        variable: field_2
+        operator: "!="
+        value: "String2"
+    - label: Should appear if field 3 value is not 1
+      type: text
+      name: not_equals_operator_test_3
+      default: ok
+      condition:
+        variable: field_3
+        operator: "!="
+        value: 1
+    # Operator >
+    - label: Should appear if field 3 is greater than 2
+      type: text
+      name: greater_than_operator_test_1
+      default: ok
+      condition:
+        variable: field_3
+        operator: ">"
+        value: 2
+    # Operator >=
+    - label: Should appear if field 3 is greater than or equal to 2
+      type: text
+      name: greater_than_or_equal_operator_test_1
+      default: ok
+      condition:
+        variable: field_3
+        operator: ">="
+        value: 2
+    # Operator <
+    - label: Should appear if field 3 is less than 2
+      type: text
+      name: less_than_operator_test_1
+      default: ok
+      condition:
+        variable: field_3
+        operator: "<"
+        value: 2
+    # Operator <=
+    - label: Should appear if field 3 is less than or equal to 2
+      type: text
+      name: less_than_or_equal_operator_test_1
+      default: ok
+      condition:
+        variable: field_3
+        operator: "<="
+        value: 2
+    # Operator containsAny
+    - label: Should appear if field 4 contains any value item1
+      type: text
+      name: contains_any_operator_test_1
+      default: ok
+      condition:
+        variable: field_4
+        operator: containsAny
+        value: item1
+    - label: Should appear if field 4 contains any value item1, item2
+      type: text
+      name: contains_any_operator_test_2
+      default: ok
+      condition:
+        variable: field_4
+        operator: containsAny
+        value: [item1, item2]
+    # Operator notContainsAny
+    - label: Should appear if field 4 does not contain any value item1
+      type: text
+      name: not_contains_any_operator_test_1
+      default: ok
+      condition:
+        variable: field_4
+        operator: notContainsAny
+        value: item1
+    - label: Should appear if field 4 does not contain any value item1, item2
+      type: text
+      name: not_contains_any_operator_test_2
+      default: ok
+      condition:
+        variable: field_4
+        operator: notContainsAny
+        value: [item1, item2]
+    # Operator containsAll
+    - label: Should appear if field 4 contains all values item1, item2
+      type: text
+      name: contains_all_operator_test_1
+      default: ok
+      condition:
+        variable: field_4
+        operator: containsAll
+        value: [item1, item2]
+    # Operator notContainsAll
+    - label: Should appear if field 4 does not contain all values item1, item2
+      type: text
+      name: not_contains_all_operator_test_1
+      default: ok
+      condition:
+        variable: field_4
+        operator: notContainsAll
+        value: [item1, item2]
