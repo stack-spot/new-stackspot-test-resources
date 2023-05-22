@@ -1,0 +1,162 @@
+schema-version: v1
+kind: plugin
+metadata:
+  name: plugin-app-portal-ws-values-tests
+  display-name: plugin-app-portal-ws-values-tests
+  description: Portal workspace input assignment tests
+  version: 0.0.4
+spec:
+  type: app
+  compatibility:
+    - python
+  about: docs/about.md
+  implementation: docs/implementation.md
+  release-notes: docs/release-notes.md
+  requirements: docs/requirements.md
+  technologies: # Ref: https://docs.stackspot.com/docs/create-stacks/yaml-files/yaml/#technologies
+    - Api
+  inputs:
+    # TEXT INPUT #
+    - label: "Text input 0 - assigned by user"
+      name: text-input0
+      type: text
+      required: false
+      default: text-input0-yaml-default-value 
+    - label: "Text input 1 - portal ws assigned"
+      name: text-input1
+      type: text
+      required: false
+      default: text-input1-yaml-default-value
+    - label: "Text input 2 - portal ws assigned mandatory"
+      name: text-input2
+      type: text
+      required: false
+      default: text-input2-yaml-default-value
+    - label: "Text input 3 - portal ws assigned mandatory, cli mandatory"
+      name: text-input3
+      type: text
+      required: true           
+    # BOOL INPUT #
+    - label: "Bool input 0 - assigned by user"
+      name: bool-input0
+      type: bool
+      required: false
+      default: false
+    - label: "Bool input 1 - portal ws assigned"
+      name: bool-input1
+      type: bool
+      required: false
+      default: false
+    - label: "Bool input 2 - portal ws assigned mandatory"
+      name: bool-input2
+      type: bool
+      required: false
+      default: false
+    - label: "Bool input 3 - portal ws assigned mandatory, cli mandatory"
+      name: bool-input3
+      type: bool
+      required: true
+    # INT INPUT #
+    - label: "Int input 0 - assigned by user"
+      name: int-input0
+      type: int
+      required: false
+      default: 999
+    - label: "Int input 1 - portal ws assigned"
+      name: int-input1
+      type: int
+      required: false
+      default: 999
+    - label: "Int input 2 - portal ws assigned mandatory"
+      name: int-input2
+      type: int
+      required: false
+      default: 999
+    - label: "Int input 3 - portal ws assigned mandatory, cli mandatory"
+      name: int-input3
+      type: int
+      required: true       
+    # SELECT INPUT #
+    - label: "Select input 0 - assigned by user"
+      type: text
+      name: select-input0
+      items:
+        - item1
+        - item2-yaml-default
+        - item3-select-input0-value-by-portal-ws
+        - item4
+      required: false    
+      default: [item2-yaml-default]
+    - label: "Select input 1 - portal ws assigned"
+      type: text
+      name: select-input1
+      items:
+        - item1
+        - item2-yaml-default
+        - item3-select-input1-value-by-portal-ws
+        - item4
+      required: false    
+      default: [item2-yaml-default]
+    - label: "Select input 2 - portal ws assigned mandatory"
+      type: text
+      name: select-input2
+      items:
+        - item1
+        - item2-yaml-default
+        - item3-select-input2-value-by-portal-ws
+        - item4
+      required: false    
+      default: [item2-yaml-default]        
+    - label: "Select input 3 - portal ws assigned mandatory, cli mandatory"
+      type: text
+      name: select-input3
+      items:
+        - item1
+        - item2-yaml-default
+        - item3-select-input3-value-by-portal-ws
+        - item4
+      required: true    
+      default: [item2-yaml-default]     
+    # MULTISELECT INPUT #
+    - label: "Multiselect input 0 - assigned by user"
+      type: multiselect
+      name: multiselect-input0
+      items:
+        - item1
+        - item2-yaml-default
+        - item3-multiselect-input0-value-by-portal-ws
+        - item4
+      required: false    
+      default: [item2-yaml-default]
+    - label: "Multiselect input 1 - portal ws assigned"
+      type: multiselect
+      name: multiselect-input1
+      items:
+        - item1
+        - item2-yaml-default
+        - item3-multiselect-input1-value-by-portal-ws
+        - item4-multiselect-input1-value-by-portal-ws
+        - item5
+      required: false    
+      default: [item2-yaml-default]
+    - label: "Multiselect input 2 - portal ws assigned mandatory"
+      type: multiselect
+      name: multiselect-input2
+      items:
+        - item1
+        - item2-yaml-default
+        - item3-multiselect-input2-value-by-portal-ws
+        - item4-multiselect-input2-value-by-portal-ws
+        - item5
+      required: false    
+      default: [item2-yaml-default]        
+    - label: "Multiselect input 3 - portal ws assigned mandatory, cli mandatory"
+      type: multiselect
+      name: multiselect-input3
+      items:
+        - item1
+        - item2-yaml-default
+        - item3-multiselect-input3-value-by-portal-ws
+        - item4
+      required: true    
+      default: [item2-yaml-default]    
