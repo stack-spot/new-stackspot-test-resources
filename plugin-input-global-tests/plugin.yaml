@@ -17,20 +17,27 @@ spec:
   technologies: # Ref: https://docs.stackspot.com/docs/create-stacks/yaml-files/yaml/#technologies
     - Api
   inputs:
-    - label: Project name
+    - label: Global input 1
       type: text
-      name: project_name
-      default: Project Name
-    - label: Local input
-      type: text
-      name: local_input
-      default: Local-Input-Definied-By-Template
-    - label: Global input
-      type: text
-      name: global_input
+      name: global_input_1
       global: true
-      default: Global-Input-Definied-By-Template
+      default: 'Global-Value-Of-Input-1'
+    - label: Global input 2
+      type: text
+      name: global_input_2
+      global: true
+      default: 'Global-Value-Of-Input-2'
+    - label: Global input 3
+      type: text
+      name: global_input_3
+      global: true
+      default: 'Global-Value-Of-Input-3'            
   computed-inputs:
-    local_computed_input: "{{ local_input | upper }}"
+    computed_input_1: "{{ global_input_1 | upper }}"
+    computed_input_2: "{{ global_input_2 | upper }}"
+    computed_input_3: "{{ global_input_3 | upper }}"
   global-computed-inputs:
-    global_computed_input: "{{ global_input | replace('-', '_') | lower}}"
+    global_computed_input_1: "{{ global_input_1 | lower}}"
+    global_computed_input_2: "{{ global_input_2 | lower}}"
+    global_computed_input_3: "{{ global_input_3 | lower}}"
+
